@@ -47,7 +47,7 @@
   var P = window.PAGE_T || {}, T = {};
   ['en', 'hi', 'ur'].forEach(function (l) { T[l] = Object.assign({}, COMMON[l], P[l] || {}) });
   var DIR = { ar: 'rtl', en: 'ltr', hi: 'ltr', ur: 'rtl' };
-  var LOGO = '/assets/primary-logo-white.png';
+  var LOGO = './assets/primary-logo-white.png';
 
   /* ---------- global variables ---------- */
   var chrome =
