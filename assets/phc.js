@@ -1,6 +1,4 @@
-/* ===== PHC shared script: language switcher, header/footer, navigation, reveal animations =====
-   كل صفحة تعرّف PAGE_T (ترجمات الصفحة) قبل تحميل هذا الملف.
-   الترجمات المشتركة (الغلاف، التذييل، الأزرار) موجودة هنا مرة واحدة فقط. */
+/* ===== PHC shared script: language switcher, header/footer, navigation, reveal animations ===== */
 (function () {
   var COMMON = {
     "en": {
@@ -32,26 +30,26 @@
       "ft.msg2": "हम आपके शीघ्र स्वस्थ होने की कामना करते हैं।"
     },
     "ur": {
-    "nav.label": "حصوں کے درمیان نیویگیٹ کریں",
-    "logo.alt": "بنیادی صحت کی دیکھ بھال کے مراکز کا لوگو",
-    "hero.sub": "فزیوتھراپی خدمات",
-    "lbl.cover": "سرورق",
-    "lbl.end": "اختتام",
-    "ft.msg": "محترم مریض، اگر آپ اپنی حالت میں کوئی بہتری محسوس نہ کریں تو براہِ کرم ڈاکٹر سے رجوع کریں۔",
-    "ft.msg2": "ہماری دعا ہے کہ آپ جلد صحت یاب ہوں۔",
-    "ft.contact": "فزیوتھراپی خدمات | اشاعتی ٹیم",
-    "video.fallback": "آپ کا براؤزر ویڈیو چلانے کی سہولت فراہم نہیں کرتا۔",
-    "chip.rep3": "تکرار: 3 مرتبہ",
-    "chip.hold30": "رکنا: 30 سیکنڈ",
-    "chip.time30": "وقت: 30 سیکنڈ"
-  }
+      "nav.label": "حصوں کے درمیان نیویگیٹ کریں",
+      "logo.alt": "بنیادی صحت کی دیکھ بھال کے مراکز کا لوگو",
+      "hero.sub": "فزیوتھراپی خدمات",
+      "lbl.cover": "سرورق",
+      "lbl.end": "اختتام",
+      "ft.msg": "محترم مریض، اگر آپ اپنی حالت میں کوئی بہتری محسوس نہ کریں تو براہِ کرم ڈاکٹر سے رجوع کریں۔",
+      "ft.msg2": "ہماری دعا ہے کہ آپ جلد صحت یاب ہوں۔",
+      "ft.contact": "فزیوتھراپی خدمات | اشاعتی ٹیم",
+      "video.fallback": "آپ کا براؤزر ویڈیو چلانے کی سہولت فراہم نہیں کرتا۔",
+      "chip.rep3": "تکرار: 3 مرتبہ",
+      "chip.hold30": "رکنا: 30 سیکنڈ",
+      "chip.time30": "وقت: 30 سیکنڈ"
+    }
   };
   var P = window.PAGE_T || {}, T = {};
   ['en', 'hi', 'ur'].forEach(function (l) { T[l] = Object.assign({}, COMMON[l], P[l] || {}) });
   var DIR = { ar: 'rtl', en: 'ltr', hi: 'ltr', ur: 'rtl' };
-  var LOGO = '../assets/primary-logo-white.png';
+  var LOGO = '/assets/primary-logo-white.png';
 
-  /* ---------- العناصر المشتركة (تُحقن في كل صفحة) ---------- */
+  /* ---------- global variables ---------- */
   var chrome =
     '<div class="bar" aria-hidden="true"><i id="progress"></i></div>' +
     '<div class="lang" role="group" aria-label="اللغة / Language">' +
@@ -83,7 +81,7 @@
     el.replaceWith(box.firstElementChild);
   });
 
-  /* ---------- محرك اللغات ---------- */
+  /* ---------- languages funcion---------- */
   var slides = [].slice.call(document.querySelectorAll('.slide'));
   var dots = document.getElementById('dots');
   var bar = document.getElementById('progress');
@@ -131,12 +129,13 @@
   }
   langBtns.forEach(function (b) { b.onclick = function () { setLang(b.dataset.lang, true) } });
 
-  /* اللغة محفوظة بين الصفحات (نفس المفتاح في كل الصفحات) */
+
+  /* save languages between pages */
   var start = 'ar';
   try { start = new URLSearchParams(location.search).get('lang') || localStorage.getItem('phc-lang') || 'ar' } catch (e) { }
   setLang(start, false);
 
-  /* ---------- ظهور المحتوى + تشغيل الفيديو ---------- */
+  /* ---------- animations and video ---------- */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       var on = e.isIntersecting && (e.intersectionRatio >= .45 || e.intersectionRect.height >= innerHeight * .5);
