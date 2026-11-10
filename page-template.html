@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>البرنامج المنزلي لـ (اسم المشكلة) | مراكز الرعاية الصحية الأولية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Sans+Bengali:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/phc.css">
+</head>
+<body>
+
+  <!-- 1) الغلاف المشترك: غيّر العنوان فقط -->
+  <div data-phc="hero" data-title-key="hero.title">ألم الكتف</div>
+
+  <!-- 2) أقسام الصفحة: انسخ أي قسم من section-templates.html أو من index.html -->
+  <!-- مثال (القالب A): صورة كبيرة + نص تحتها -->
+  <section class="slide" data-label="التعريف" data-i18n-label="lbl.intro">
+    <div class="inner one">
+      <h2 class="rv" style="--i:0" data-i18n="a.title">ما هو ألم الكتف؟</h2>
+      <div class="pic wide deco rv" style="--i:1" data-ph="صورة كبيرة"><img src="" alt="" data-i18n-alt="a.alt"></div>
+      <p class="big-lead rv" style="--i:2" data-i18n="a.text">نص قصير تحت الصورة.</p>
+    </div>
+  </section>
+
+  <!-- 3) التذييل المشترك: لا تغيّره -->
+  <div data-phc="footer"></div>
+
+  <script>
+    /* ترجمات هذه الصفحة فقط. كل data-i18n / data-i18n-alt / data-i18n-label تحتاج مفتاحاً هنا.
+       الغلاف والتذييل وأزرار اللغة وأسماء الأقسام (lbl.cover, lbl.end) مترجمة مسبقاً في assets/phc.js */
+    window.PAGE_T = {
+      en: {
+        "doc.title": "Home Program for Shoulder Pain | Primary Healthcare Centres",
+        "hero.title": "Shoulder Pain",
+        "lbl.intro": "Overview",
+        "a.title": "What is shoulder pain?",
+        "a.alt": "Shoulder joint",
+        "a.text": "Short text under the image."
+      },
+      hi: {
+        "doc.title": "कंधे के दर्द के लिए घरेलू कार्यक्रम | प्राथमिक स्वास्थ्य देखभाल केंद्र",
+        "hero.title": "कंधे का दर्द",
+        "lbl.intro": "परिचय",
+        "a.title": "कंधे का दर्द क्या है?",
+        "a.alt": "कंधे का जोड़",
+        "a.text": "तस्वीर के नीचे छोटा पाठ।"
+      },
+      bn: {
+        "doc.title": "কাঁধের ব্যথার হোম প্রোগ্রাম | প্রাথমিক স্বাস্থ্যসেবা কেন্দ্র",
+        "hero.title": "কাঁধের ব্যথা",
+        "lbl.intro": "পরিচিতি",
+        "a.title": "কাঁধের ব্যথা কী?",
+        "a.alt": "কাঁধের জোড়",
+        "a.text": "ছবির নিচে ছোট লেখা।"
+      }
+    };
+  </script>
+  <script src="assets/phc.js"></script>
+</body>
+</html>

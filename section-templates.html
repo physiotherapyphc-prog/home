@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>قوالب الأقسام الإضافية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<!--
+  كيف تستخدم هذا الملف:
+  1) افتحه في المتصفح لمعاينة القوالب الستة.
+  2) انسخ كتلة "NEW CSS" إلى <style> في index.html (مرة واحدة).
+  3) انسخ القسم الذي يعجبك (<section> كاملاً) إلى index.html بين أي قسمين.
+  4) أضف مفاتيح النصوص (data-i18n / data-i18n-alt / data-i18n-label) إلى T.en / T.hi / T.bn.
+  5) استبدل الدالة io في JS بالنسخة الموجودة في آخر هذا الملف (مهمة للأقسام الطويلة).
+-->
+<style>
+/* ============ BASE: موجود أصلاً في index.html، تجاهله ============ */
+:root{--navy:#3D4A6D;--green:#81B199;--green-deep:#4C8E78;--red:#C16363;--paper:#F0F2F1;--ink:#2B3450;--d:1;
+  --font:'Frutiger LT Arabic','Sakkal Majalla','Tajawal','Segoe UI',Tahoma,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.8;font-size:clamp(1.05rem,1.2vw + .7rem,1.35rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+.slide{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:clamp(4.5rem,8vw,6rem) clamp(1.25rem,6vw,6rem);position:relative;overflow:hidden}
+.inner{width:min(1180px,100%);display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+h1,h2{color:var(--navy);line-height:1.3;font-weight:800}
+h2{font-size:clamp(1.8rem,3.6vw,3rem);margin-bottom:1.5rem;padding-inline-start:1rem;border-inline-start:6px solid var(--green)}
+.alt{background:#fff}
+.head{grid-column:1/-1}.when{max-width:none;font-size:1.05em}.when b{color:var(--navy)}
+.slide:not(.hero) .rv{opacity:0;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0)*110ms)}
+.slide.in .rv{opacity:1!important;transform:none!important}
+.tag{position:fixed;top:.6rem;inset-inline-start:.6rem;z-index:9;background:var(--navy);color:#fff;font-size:.8rem;padding:.2rem .8rem;border-radius:99px}
+
+/* ============ NEW CSS: انسخ من هنا ============ */
+
+/* عمود واحد بعرض كامل (بدل شبكة العمودين) */
+.inner.one{display:block}
+.alt{--card:var(--paper)}
+
+/* مكان صورة: يظهر إطاراً منقطاً حتى تضيف src */
+.pic{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#fff;border:2px dashed var(--green);display:grid;place-items:center;color:var(--navy);font-size:1rem}
+.pic::after{content:attr(data-ph)}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.pic img[src=""],.pic img:not([src]){display:none}
+.pic.wide{aspect-ratio:16/7}
+.pic.deco{border-end-end-radius:90px;box-shadow:calc(18px * var(--d)) 18px 0 -2px var(--green)}
+.pic.deco::before{content:"";position:absolute;top:0;inset-inline:0;height:14px;background:var(--navy);z-index:2}
+
+/* A) صورة كبيرة + نص تحتها */
+.big-lead{margin-top:2.2rem;max-width:none}
+.big-lead.cols{columns:2;column-gap:3rem}
+
+/* B) بطاقات صور (2 إلى 4) + D) شريط أفقي قابل للتمرير */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.card{background:var(--card,#fff);border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(43,52,80,.12);display:flex;flex-direction:column}
+.card .pic{border:0;border-radius:0;aspect-ratio:4/3;border-bottom:4px solid var(--green)}
+.card .body{padding:1.1rem 1.3rem 1.4rem}
+.card h3{color:var(--navy);font-size:1.2em;line-height:1.4;margin-bottom:.4rem}
+.card p{font-size:.95em;line-height:1.7}
+.slider{display:flex;gap:1.4rem;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:.5rem .2rem 1.4rem;scrollbar-color:var(--green) transparent}
+.slider .card{flex:0 0 min(78%,360px);scroll-snap-align:center}
+
+/* C) صورة خلفية كاملة + نص فوقها */
+.slide.bg{--bg:none;color:#fff;background:linear-gradient(rgba(61,74,109,.78),rgba(61,74,109,.9)),var(--bg) center/cover,var(--navy);text-align:center}
+.slide.bg h2{color:#fff;border:0;padding:0;margin-inline:auto;max-width:22ch}
+.slide.bg p{max-width:46ch;margin-inline:auto;color:#eef2f8}
+.slide.bg .badge{display:inline-block;background:var(--green);color:var(--navy);font-weight:700;font-size:.9rem;padding:.2rem 1.1rem;border-radius:99px;margin-bottom:1.2rem}
+
+/* E) صح / خطأ */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.col{background:var(--card,#fff);border-radius:18px;padding:1.6rem 1.8rem;border-top:8px solid var(--green-deep);box-shadow:0 6px 20px rgba(43,52,80,.1)}
+.col.dont{border-top-color:var(--red)}
+.col h3{font-size:1.3em;color:var(--green-deep);margin-bottom:.8rem}
+.col.dont h3{color:var(--red)}
+.col ul{list-style:none}
+.col li{position:relative;padding:.5rem 0;padding-inline-start:2.2rem}
+.col li::before{content:"✓";position:absolute;inset-inline-start:0;top:.55rem;width:1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;font-size:.85rem;color:#fff;background:var(--green-deep)}
+.col.dont li::before{content:"✕";background:var(--red)}
+
+/* F) بطاقات نصية مرقمة (نصائح / أسباب) */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;counter-reset:t}
+.tile{counter-increment:t;background:var(--card,#fff);padding:1.5rem;border-radius:18px;border-top:6px solid var(--green);box-shadow:0 6px 20px rgba(43,52,80,.1)}
+.tile::before{content:counter(t);display:block;font-size:2.6rem;font-weight:800;line-height:1.1;color:var(--green-deep)}
+.tile h3{color:var(--navy);margin:.3rem 0 .3rem;font-size:1.15em}
+
+@media (max-width:860px){.compare{grid-template-columns:1fr}.big-lead.cols{columns:1}.pic.wide{aspect-ratio:4/3}.pic.deco{box-shadow:calc(10px * var(--d)) 10px 0 -2px var(--green)}}
+/* ============ NEW CSS: إلى هنا ============ */
+</style>
+</head>
+<body>
+
+<!-- ======================================================= -->
+<!-- A) صورة كبيرة + نص قليل تحتها                            -->
+<!-- ======================================================= -->
+<section class="slide" data-label="القالب A" data-i18n-label="lbl.a">
+  <div class="inner one">
+    <h2 class="rv" style="--i:0" data-i18n="a.title">عنوان القسم</h2>
+    <div class="pic wide deco rv" style="--i:1" data-ph="صورة كبيرة"><img src="" alt="" data-i18n-alt="a.alt"></div>
+    <p class="big-lead rv" style="--i:2" data-i18n="a.text">نص قصير تحت الصورة بعرض كامل. اكتب هنا فقرة من سطرين أو ثلاثة. لجعل النص عمودين أضف الصنف <b>cols</b> إلى هذه الفقرة.</p>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- B) بطاقات صور متعددة (مثال: أنواع الكمادات الساخنة)      -->
+<!--    احذف أو انسخ <article> ليصبح العدد 2 أو 3 أو 4       -->
+<!-- ======================================================= -->
+<section class="slide alt" data-label="القالب B" data-i18n-label="lbl.b">
+  <div class="inner one">
+    <h2 class="rv" style="--i:0" data-i18n="b.title">أنواع الكمادات</h2>
+    <p class="when rv" style="--i:1" data-i18n="b.lead">جملة تمهيدية اختيارية بعرض كامل.</p>
+    <div class="cards" style="margin-top:2rem">
+      <article class="card rv" style="--i:2"><div class="pic" data-ph="صورة 1"><img src="" alt="" data-i18n-alt="b.c1.alt"></div><div class="body"><h3 data-i18n="b.c1.t">النوع الأول</h3><p data-i18n="b.c1.p">وصف قصير جداً.</p></div></article>
+      <article class="card rv" style="--i:3"><div class="pic" data-ph="صورة 2"><img src="" alt="" data-i18n-alt="b.c2.alt"></div><div class="body"><h3 data-i18n="b.c2.t">النوع الثاني</h3><p data-i18n="b.c2.p">وصف قصير جداً.</p></div></article>
+      <article class="card rv" style="--i:4"><div class="pic" data-ph="صورة 3"><img src="" alt="" data-i18n-alt="b.c3.alt"></div><div class="body"><h3 data-i18n="b.c3.t">النوع الثالث</h3><p data-i18n="b.c3.p">وصف قصير جداً.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- C) صورة خلفية كاملة + نص فوقها (تنبيه / مقدمة مشكلة)     -->
+<!--    ضع الصورة في --bg                                    -->
+<!-- ======================================================= -->
+<section class="slide bg" style="--bg:url('assets/shoulder-bg.jpg')" data-label="القالب C" data-i18n-label="lbl.c">
+  <div class="inner one">
+    <span class="badge rv" style="--i:0" data-i18n="c.badge">تنبيه</span>
+    <h2 class="rv" style="--i:1" data-i18n="c.title">عنوان كبير فوق الصورة</h2>
+    <p class="rv" style="--i:2" data-i18n="c.text">جملة أو جملتان فقط حتى تبقى الصورة واضحة.</p>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- D) شريط صور أفقي قابل للتمرير (للصور الكثيرة 4 فأكثر)    -->
+<!-- ======================================================= -->
+<section class="slide" data-label="القالب D" data-i18n-label="lbl.d">
+  <div class="inner one">
+    <h2 class="rv" style="--i:0" data-i18n="d.title">معرض الصور</h2>
+    <div class="slider rv" style="--i:1" tabindex="0" aria-label="معرض الصور">
+      <article class="card"><div class="pic" data-ph="1"><img src="" alt=""></div><div class="body"><h3 data-i18n="d.c1.t">العنوان 1</h3><p data-i18n="d.c1.p">وصف قصير.</p></div></article>
+      <article class="card"><div class="pic" data-ph="2"><img src="" alt=""></div><div class="body"><h3 data-i18n="d.c2.t">العنوان 2</h3><p data-i18n="d.c2.p">وصف قصير.</p></div></article>
+      <article class="card"><div class="pic" data-ph="3"><img src="" alt=""></div><div class="body"><h3 data-i18n="d.c3.t">العنوان 3</h3><p data-i18n="d.c3.p">وصف قصير.</p></div></article>
+      <article class="card"><div class="pic" data-ph="4"><img src="" alt=""></div><div class="body"><h3 data-i18n="d.c4.t">العنوان 4</h3><p data-i18n="d.c4.p">وصف قصير.</p></div></article>
+      <article class="card"><div class="pic" data-ph="5"><img src="" alt=""></div><div class="body"><h3 data-i18n="d.c5.t">العنوان 5</h3><p data-i18n="d.c5.p">وصف قصير.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- E) صح / خطأ (افعل ولا تفعل)                              -->
+<!-- ======================================================= -->
+<section class="slide alt" data-label="القالب E" data-i18n-label="lbl.e">
+  <div class="inner one">
+    <h2 class="rv" style="--i:0" data-i18n="e.title">افعل ولا تفعل</h2>
+    <div class="compare">
+      <div class="col do rv" style="--i:1">
+        <h3 data-i18n="e.do">افعل</h3>
+        <ul>
+          <li data-i18n="e.do1">نقطة أولى.</li>
+          <li data-i18n="e.do2">نقطة ثانية.</li>
+          <li data-i18n="e.do3">نقطة ثالثة.</li>
+        </ul>
+      </div>
+      <div class="col dont rv" style="--i:2">
+        <h3 data-i18n="e.dont">لا تفعل</h3>
+        <ul>
+          <li data-i18n="e.dont1">نقطة أولى.</li>
+          <li data-i18n="e.dont2">نقطة ثانية.</li>
+          <li data-i18n="e.dont3">نقطة ثالثة.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= -->
+<!-- F) بطاقات نصية مرقمة بدون صور (أسباب / نصائح / مراحل)    -->
+<!-- ======================================================= -->
+<section class="slide" data-label="القالب F" data-i18n-label="lbl.f">
+  <div class="inner one">
+    <h2 class="rv" style="--i:0" data-i18n="f.title">أهم النصائح</h2>
+    <div class="tiles">
+      <div class="tile rv" style="--i:1"><h3 data-i18n="f.t1">العنوان</h3><p data-i18n="f.p1">شرح قصير.</p></div>
+      <div class="tile rv" style="--i:2"><h3 data-i18n="f.t2">العنوان</h3><p data-i18n="f.p2">شرح قصير.</p></div>
+      <div class="tile rv" style="--i:3"><h3 data-i18n="f.t3">العنوان</h3><p data-i18n="f.p3">شرح قصير.</p></div>
+      <div class="tile rv" style="--i:4"><h3 data-i18n="f.t4">العنوان</h3><p data-i18n="f.p4">شرح قصير.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   JS: استبدل به المراقب io في index.html
+   السبب: الأقسام الطويلة (بطاقات على الجوال مثلاً) لا تصل أبداً إلى 45%
+   من ارتفاعها داخل الشاشة، فيبقى محتواها مخفياً.
+   الجديد: يكفي أن يغطي القسم نصف الشاشة تقريباً.
+   ============================================================ */
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    var on = e.isIntersecting && (e.intersectionRatio >= .45 || e.intersectionRect.height >= innerHeight * .5);
+    var i = slides.indexOf(e.target);
+    var v = e.target.querySelector('video');
+    if (on) {
+      e.target.classList.add('in');
+      btns.forEach(function (b, k) { b.classList.toggle('on', k === i) });
+      if (v) v.play().catch(function () { });
+    } else if (!e.isIntersecting) {
+      e.target.classList.remove('in');
+      if (v) v.pause();
+    }
+  });
+}, { threshold: [0, .1, .2, .3, .45, .6, .8, 1] });
+
+/* ---- للمعاينة في هذا الملف فقط ---- */
+var slides = [].slice.call(document.querySelectorAll('.slide')), btns = [];
+slides.forEach(function (s) { io.observe(s) });
+</script>
+</body>
+</html>
